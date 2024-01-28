@@ -1,0 +1,61 @@
+<Project ToolsVersion="15.0"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!--
+    Use RoslynCodeTaskFactory if available, fall back to CodeTaskFactory.
+    See https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-roslyncodetaskfactory?view=vs-2019#provide-backward-compatibility 
+    -->
+    <Choose>
+        <When Condition=" '$(MSBuildVersion.Substring(0,2))' >= 16 Or
+        ('$(MSBuildVersion.Substring(0,2))' == 15 And '$(MSBuildVersion.Substring(3,1))' >= 8)">
+            <PropertyGroup>
+                <TaskFactory>RoslynCodeTaskFactory</TaskFactory>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <TaskFactory>CodeTaskFactory</TaskFactory>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+
+    <UsingTask TaskName="GenerateFileHash"
+        TaskFactory="$(TaskFactory)"
+        AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+        <ParameterGroup>
+            <InputFile ParameterType="System.String"
+                Required="true" />
+            <Checksum ParameterType="System.String"
+                Output="true" />
+        </ParameterGroup>
+        <Task>
+            <Using Namespace="System.IO" />
+            <Using Namespace="System.Security.Cryptography" />
+            <Code Type="Fragment"
+                Language="cs">
+                <![CDATA[
+                    using (var md5 = MD5.Create())
+                    {                
+                        using (var stream = new FileStream(InputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+                        {
+                            byte[] bytes = md5.ComputeHash(stream);  
+      
+                            // Convert byte array to a string   
+                            StringBuilder builder = new StringBuilder();  
+                            for (int i = 0; i < bytes.Length; i++)  
+                            {  
+                                builder.Append(bytes[i].ToString("x2"));  
+                            }  
+                            Checksum = builder.ToString();
+                        }
+                    }
+                ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+
+    <PropertyGroup>
+        <_RtRecommendedPracticesTasksIncluded>true</_RtRecommendedPracticesTasksIncluded>
+    </PropertyGroup>
+
+</Project>

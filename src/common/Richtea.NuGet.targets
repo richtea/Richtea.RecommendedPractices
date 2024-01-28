@@ -1,0 +1,11 @@
+<Project ToolsVersion="14.0" 
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Target Name="_RtEnsurePackageIcon" AfterTargets="BeforeBuild" BeforeTargets="CoreBuild">
+        <Copy 
+            Condition="('$(RtDisableDefaultPackageIconInclusion)' != 'true') and (!Exists('$(MSBuildProjectDirectory)/PackageIcon.png'))" 
+            SourceFiles="$(MSBuildThisFileDirectory)DefaultPackageIcon.png" 
+            DestinationFiles="$(MSBuildProjectDirectory)/PackageIcon.png" />
+    </Target>
+
+</Project>

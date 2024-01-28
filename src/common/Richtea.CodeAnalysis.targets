@@ -1,0 +1,128 @@
+<Project ToolsVersion="14.0"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Import Project="$(MSBuildThisFileDirectory)Richtea.RecommendedPractices.tasks"
+        Condition="'$(_RtRecommendedPracticesTasksIncluded)' == ''"/>
+
+    <!-- 
+        In configuring code analysis, we define various levels:
+
+            Strict   - most strict, appropriate for shared libraries.
+            Standard - appropriate for most production application code.
+            Reduced  - appropriate for samples, development tools.
+            Lax      - minimum level of code analysis, for throwaway code etc.
+            Test     - only for use in test projects.
+
+        Each of these has a corresponding ruleset file.
+
+        If the project file hasn't specified a value by using the RtCodeAnalysisLevel property,
+        we default to Strict.
+    -->
+
+    <PropertyGroup>
+        <RtCodeAnalysisLevel Condition="'$(RtCodeAnalysisLevel)' == ''">Strict</RtCodeAnalysisLevel>
+    </PropertyGroup>
+
+    <!-- 
+        Specify the code analysis ruleset to use. This is derived from the RtCodeAnalysisLevel
+        property.
+        Note: this file gets included late in the MSBuild process (after the .csproj file), so it
+        will override anything set in the project file (unless RtDisableCodeAnalysis is true).
+    -->
+    <PropertyGroup>
+        <CodeAnalysisRuleSet Condition="('$(RtDisableCodeAnalysis)' != 'true') and ('$(RtCodeAnalysisLevel)' != '')">$(MSBuildThisFileDirectory)rulesets/$(RtCodeAnalysisLevel).ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <!--
+        Set up code analysis to use solution-level .editorconfig settings. There's no built-in 
+        way for a NuGet package to supply solution-level content so we just check to see if the
+        relevant files exist, and if not, create them.
+
+        Note that this typically results in a warning directly after adding this NuGet package
+        to a project for the first time in any solution, because the files won't get copied
+        until you first build, but VS runs analyzers immediately to provide instant feedback.
+        Once you've built, this warning shouldn't reappear.
+
+        The automatic copying of these files can be configured with property RtEditorConfigUpgrade.
+        Allowable values are:
+
+            silent  - Silently upgrade the .editorconfig file to keep it aligned with the
+                      NuGet package's version.
+            never   - Never modify the .editorconfig file, and don't issue any warnings about
+                      any discrepancies (use this if you are managing it yourself).
+            warn    - Do not modify any existing .editorconfig file, but create one if it doesn't
+                      exist. If one exists and is different from the package version, issue a
+                      build warning. NOTE: this is the default value if the property is not
+                      specified.
+
+        <PropertyGroup>
+          <RtEditorConfigUpgrade>silent</RtEditorConfigUpgrade>
+        </PropertyGroup>
+    -->
+
+    <PropertyGroup>
+        <RtEditorConfigUpgrade Condition="'$(RtEditorConfigUpgrade)' == ''">warn</RtEditorConfigUpgrade>
+    </PropertyGroup>
+
+    <!-- Validate settings -->
+    <Target Name="_RtValidateEditorConfigUpgradeSetting">
+
+        <Error Code="RRP0003"
+            Condition="'$(RtEditorConfigUpgrade)' != 'silent' And
+            '$(RtEditorConfigUpgrade)' != 'never' And
+            '$(RtEditorConfigUpgrade)' != 'warn'"
+            Text="Invalid value '$(RtEditorConfigUpgrade)' for property RtEditorConfigUpgrade" />
+
+    </Target>
+
+    <!-- If file exists, check whether upgrade is required -->
+    <Target Name="_RtCheckForEditorConfigUpgrade"
+        Condition="Exists('$(RtRootDir).editorconfig')">
+        <GenerateFileHash InputFile="$(RtRootDir).editorconfig">
+            <Output TaskParameter="Checksum"
+                PropertyName="ExistingEditorConfigChecksum" />
+        </GenerateFileHash>
+        <GenerateFileHash InputFile="$(MSBuildThisFileDirectory)/.editorconfig.root">
+            <Output TaskParameter="Checksum"
+                PropertyName="PackageEditorConfigChecksum" />
+        </GenerateFileHash>
+
+        <PropertyGroup>
+            <_RtEditorConfigUpgradeRequired>false</_RtEditorConfigUpgradeRequired>
+            <_RtEditorConfigUpgradeRequired Condition="'$(ExistingEditorConfigChecksum)' != '$(PackageEditorConfigChecksum)'">true</_RtEditorConfigUpgradeRequired>
+            <_RtCopyEditorConfig>false</_RtCopyEditorConfig>
+            <_RtCopyEditorConfig Condition="'$(_RtEditorConfigUpgradeRequired)' == 'true' And '$(RtEditorConfigUpgrade)' == 'silent'">true</_RtCopyEditorConfig>
+        </PropertyGroup>
+
+        <Warning Code="RRP0004"
+            Text="File '$(RtRootDir).editorconfig' is inconsistent with the package version, but will not be updated. To update, delete the existing file, or set property RtEditorConfigUpgrade to 'silent'. To suppress this warning (for example, because you have modified it yourself), set property RtEditorConfigUpgrade to 'never'."
+            Condition="'$(_RtEditorConfigUpgradeRequired)' == 'true' And '$(RtEditorConfigUpgrade)' == 'warn'" />
+    </Target>
+
+    <!-- If file doesn't exist, determine whether to install it -->
+    <Target Name="_RtCheckForEditorConfigInstall"
+        Condition="!Exists('$(RtRootDir).editorconfig')">
+
+        <PropertyGroup>
+            <_RtCopyEditorConfig>true</_RtCopyEditorConfig>
+            <_RtCopyEditorConfig Condition="'$(RtEditorConfigUpgrade)' == 'never'">false</_RtCopyEditorConfig>
+        </PropertyGroup>
+
+    </Target>
+
+    <!-- Perform the actual file copy -->
+    <Target Name="_RtEnsureEditorConfig"
+        AfterTargets="BeforeBuild"
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="_RtValidateEditorConfigUpgradeSetting;_RtCheckForEditorConfigUpgrade;_RtCheckForEditorConfigInstall">
+
+        <Copy Condition="'$(_RtCopyEditorConfig)' == 'true'"
+            SourceFiles="$(MSBuildThisFileDirectory).editorconfig.root"
+            DestinationFiles="$(RtRootDir).editorconfig" />
+
+        <Message Importance="high"
+            Condition="'$(_RtCopyEditorConfig)' == 'true'"
+            Text="'$(RtRootDir).editorconfig' was updated" />
+    </Target>
+
+</Project>

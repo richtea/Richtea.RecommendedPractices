@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<RuleSet Name="All Rules with default action" Description="All Rules with default action. Rules with IsEnabledByDefault = false are disabled." ToolsVersion="15.0">
+   <Include Path="Reduced.ruleset" Action="Default" />
+   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+      <Rule Id="SA1300" Action="None" />             <!-- Element should begin with an uppercase letter. -->
+   </Rules>
+   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
+      <Rule Id="CA1707" Action="None" />             <!-- Identifiers should not contain underscores -->
+   </Rules>
+   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
+      <Rule Id="S1481" Action="Hidden" />            <!-- Remove unused local variable -->
+      <Rule Id="S2933" Action="Hidden" />            <!-- Make field readonly -->
+   </Rules>
+</RuleSet>

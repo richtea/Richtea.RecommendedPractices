@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<RuleSet Name="All Rules with default action" Description="All Rules with default action. Rules with IsEnabledByDefault = false are disabled." ToolsVersion="15.0">
+   <Include Path="Base.ruleset" Action="Default" />
+   
+   <!-- Globalization Rules -->
+   <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+      <Rule Id="CA1303" Action="Warning" />          <!-- Do not pass literals as localized parameters -->
+      <Rule Id="CA1304" Action="Warning" />          <!-- Specify CultureInfo -->
+      <Rule Id="CA1305" Action="Warning" />          <!-- Specify IFormatProvider -->
+      <Rule Id="CA1307" Action="Warning" />          <!-- Specify StringComparison for clarity -->
+      <Rule Id="CA1308" Action="Warning" />          <!-- Normalize strings to uppercase -->
+      <Rule Id="CA1309" Action="Warning" />          <!-- Use ordinal string comparison -->
+      <Rule Id="CA1310" Action="Warning" />          <!-- Specify StringComparison for correctness -->
+      <Rule Id="CA2101" Action="Warning" />          <!-- Specify marshaling for P/Invoke string arguments -->
+   </Rules>
+
+</RuleSet>

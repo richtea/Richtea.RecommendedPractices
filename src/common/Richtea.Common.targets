@@ -1,0 +1,63 @@
+<Project ToolsVersion="15.0"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!--
+        Check that RtRootDir is configured
+    -->
+    <Target Name="_RtEnsureRtRootDirConfigured"
+        BeforeTargets="BeforeBuild">
+        <Error Condition="'$(RtRootDir)' == ''"
+            Text="The RtRootDir property must be set. Have you created Directory.build.props in the solution root directory?"
+            Code="RRP0001" />
+    </Target>
+
+    <!--
+        Copy the RtRecommendedPractices.DotSettings file into the solution root directory (overwrite if necessary). If the file has
+        been modified, issue a build warning.
+    -->
+    <Target Name="_RtInitializeDotSettingsCopy">
+        <PropertyGroup>
+            <_PackageDotSettingsFile>$(MSBuildThisFileDirectory)/RtRecommendedPractices.DotSettings</_PackageDotSettingsFile>
+            <_TargetDotSettingsFile>$(RtRootDir)RtRecommendedPractices.DotSettings</_TargetDotSettingsFile>
+            <_RtDotSettingsUpgradeRequired>true</_RtDotSettingsUpgradeRequired>
+        </PropertyGroup>
+    </Target>
+
+    <!-- If file exists, check whether upgrade is required -->
+    <Target Name="_RtCheckForModifiedDotSettingsFile"
+        Condition="Exists('$(_TargetDotSettingsFile)')">
+        <GenerateFileHash InputFile="$(_TargetDotSettingsFile)">
+            <Output TaskParameter="Checksum"
+                PropertyName="ExistingDotSettingsChecksum" />
+        </GenerateFileHash>
+        <GenerateFileHash InputFile="$(_PackageDotSettingsFile)">
+            <Output TaskParameter="Checksum"
+                PropertyName="PackageDotSettingsChecksum" />
+        </GenerateFileHash>
+
+        <PropertyGroup>
+            <_RtDotSettingsUpgradeRequired>false</_RtDotSettingsUpgradeRequired>
+            <_RtDotSettingsUpgradeRequired Condition="'$(ExistingDotSettingsChecksum)' != '$(PackageDotSettingsChecksum)'">true</_RtDotSettingsUpgradeRequired>
+        </PropertyGroup>
+
+        <Warning Code="RRP0002"
+            Text="File '$(_TargetDotSettingsFile)' is inconsistent with the package version, and will be be overwritten. This file should not be modified."
+            Condition="'$(_RtDotSettingsUpgradeRequired)' == 'true'" />
+    </Target>
+
+    <!-- Update the standard DotSettings file (always, there should be no need for anyone to modify this) -->
+    <Target Name="_RtEnsureDotSettings"
+        AfterTargets="BeforeBuild"
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="_RtInitializeDotSettingsCopy;_RtCheckForModifiedDotSettingsFile">
+
+        <Message Condition="'$(_RtDotSettingsUpgradeRequired)' == 'true'"
+            Importance="High"
+            Text="Copying from '$(_PackageDotSettingsFile)' to '$(_TargetDotSettingsFile)'" />
+        <Copy Condition="'$(_RtDotSettingsUpgradeRequired)' == 'true'"
+            SourceFiles="$(_PackageDotSettingsFile)"
+            DestinationFiles="$(_TargetDotSettingsFile)" />
+    </Target>
+
+
+</Project>

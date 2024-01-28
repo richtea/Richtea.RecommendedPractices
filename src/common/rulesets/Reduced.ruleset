@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<RuleSet Name="All Rules with default action" Description="All Rules with default action. Rules with IsEnabledByDefault = false are disabled." ToolsVersion="15.0">
+   <Include Path="Base.ruleset" Action="Default" />
+   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
+      <Rule Id="CA1000" Action="Hidden" />           <!-- Do not declare static members on generic types -->
+      <Rule Id="CA1002" Action="Hidden" />           <!-- Do not expose generic lists -->
+      <Rule Id="CA1008" Action="Hidden" />           <!-- Enums should have zero value -->
+      <Rule Id="CA1010" Action="Hidden" />           <!-- Collections should implement generic interface -->
+      <Rule Id="CA1012" Action="None" />             <!-- Abstract types should not have constructors -->
+      <Rule Id="CA1014" Action="None" />             <!-- Mark assemblies with CLSCompliant -->
+      <Rule Id="CA1016" Action="Hidden" />           <!-- Mark assemblies with assembly version -->
+      <Rule Id="CA1017" Action="None" />             <!-- Mark assemblies with ComVisible -->
+      <Rule Id="CA1018" Action="Hidden" />           <!-- Mark attributes with AttributeUsageAttribute -->
+      <Rule Id="CA1024" Action="Hidden" />           <!-- Use properties where appropriate -->
+      <Rule Id="CA1027" Action="None" />             <!-- Mark enums with FlagsAttribute -->
+      <Rule Id="CA1028" Action="Hidden" />           <!-- Enum Storage should be Int32 -->
+      <Rule Id="CA1030" Action="Hidden" />           <!-- Use events where appropriate -->
+      <Rule Id="CA1033" Action="Hidden" />           <!-- Interface methods should be callable by child types -->
+      <Rule Id="CA1034" Action="Hidden" />           <!-- Nested types should not be visible -->
+      <Rule Id="CA1036" Action="Hidden" />           <!-- Override methods on comparable types -->
+      <Rule Id="CA1040" Action="Hidden" />           <!-- Avoid empty interfaces -->
+      <Rule Id="CA1041" Action="Hidden" />           <!-- Provide ObsoleteAttribute message -->
+      <Rule Id="CA1043" Action="Hidden" />           <!-- Use Integral Or String Argument For Indexers -->
+      <Rule Id="CA1044" Action="Hidden" />           <!-- Properties should not be write only -->
+      <Rule Id="CA1050" Action="Hidden" />           <!-- Declare types in namespaces -->
+      <Rule Id="CA1051" Action="Hidden" />           <!-- Do not declare visible instance fields -->
+      <Rule Id="CA1052" Action="Hidden" />           <!-- Static holder types should be Static or NotInheritable -->
+      <Rule Id="CA1054" Action="Hidden" />           <!-- Uri parameters should not be strings -->
+      <Rule Id="CA1055" Action="Hidden" />           <!-- Uri return values should not be strings -->
+      <Rule Id="CA1056" Action="Hidden" />           <!-- Uri properties should not be strings -->
+      <Rule Id="CA1060" Action="None" />             <!-- Move pinvokes to native methods class -->
+      <Rule Id="CA1061" Action="Hidden" />           <!-- Do not hide base class methods -->
+      <Rule Id="CA1062" Action="Hidden" />           <!-- Validate arguments of public methods -->
+      <Rule Id="CA1063" Action="Hidden" />           <!-- Implement IDisposable Correctly -->
+      <Rule Id="CA1064" Action="Hidden" />           <!-- Exceptions should be public -->
+      <Rule Id="CA1066" Action="Hidden" />           <!-- Type {0} should implement IEquatable<T> because it overrides Equals -->
+      <Rule Id="CA1067" Action="Hidden" />           <!-- Override Object.Equals(object) when implementing IEquatable<T> -->
+      <Rule Id="CA1068" Action="Hidden" />           <!-- CancellationToken parameters must come last -->
+      <Rule Id="CA1501" Action="Hidden" />           <!-- Avoid excessive inheritance -->
+      <Rule Id="CA1502" Action="Hidden" />           <!-- Avoid excessive complexity -->
+      <Rule Id="CA1505" Action="Hidden" />           <!-- Avoid unmaintainable code -->
+      <Rule Id="CA1506" Action="Hidden" />           <!-- Avoid excessive class coupling -->
+      <Rule Id="CA1509" Action="Hidden" />           <!-- Invalid entry in code metrics rule specification file -->
+      <Rule Id="CA1707" Action="Hidden" />           <!-- Identifiers should not contain underscores -->
+      <Rule Id="CA1708" Action="Hidden" />           <!-- Identifiers should differ by more than case -->
+      <Rule Id="CA1710" Action="Hidden" />           <!-- Identifiers should have correct suffix -->
+      <Rule Id="CA1711" Action="Hidden" />           <!-- Identifiers should not have incorrect suffix -->
+      <Rule Id="CA1714" Action="Hidden" />           <!-- Flags enums should have plural names -->
+      <Rule Id="CA1715" Action="Hidden" />           <!-- Identifiers should have correct prefix -->
+      <Rule Id="CA1716" Action="Hidden" />           <!-- Identifiers should not match keywords -->
+      <Rule Id="CA1717" Action="Hidden" />           <!-- Only FlagsAttribute enums should have plural names -->
+      <Rule Id="CA1720" Action="Hidden" />           <!-- Identifier contains type name -->
+      <Rule Id="CA1721" Action="Hidden" />           <!-- Property names should not match get methods -->
+      <Rule Id="CA1724" Action="Hidden" />           <!-- Type names should not match namespaces -->
+      <Rule Id="CA1725" Action="Hidden" />           <!-- Parameter names should match base declaration -->
+      <Rule Id="CA1801" Action="Hidden" />           <!-- Review unused parameters -->
+      <Rule Id="CA1802" Action="Hidden" />           <!-- Use literals where appropriate -->
+      <Rule Id="CA1806" Action="Hidden" />           <!-- Do not ignore method results -->
+      <Rule Id="CA1812" Action="Hidden" />           <!-- Avoid uninstantiated internal classes -->
+      <Rule Id="CA1814" Action="Hidden" />           <!-- Prefer jagged arrays over multidimensional -->
+      <Rule Id="CA1815" Action="Hidden" />           <!-- Override equals and operator equals on value types -->
+      <Rule Id="CA1819" Action="Hidden" />           <!-- Properties should not return arrays -->
+      <Rule Id="CA1822" Action="Hidden" />           <!-- Mark members as static -->
+      <Rule Id="CA1823" Action="Hidden" />           <!-- Avoid unused private fields -->
+      <Rule Id="CA2007" Action="None" />             <!-- Do not directly await a Task -->
+      <Rule Id="CA2119" Action="Hidden" />           <!-- Seal methods that satisfy private interfaces -->
+      <Rule Id="CA2211" Action="Hidden" />           <!-- Non-constant fields should not be visible -->
+      <Rule Id="CA2214" Action="Hidden" />           <!-- Do not call overridable methods in constructors -->
+      <Rule Id="CA2217" Action="None" />             <!-- Do not mark enums with FlagsAttribute -->
+      <Rule Id="CA2219" Action="Hidden" />           <!-- Do not raise exceptions in finally clauses -->
+      <Rule Id="CA2225" Action="Hidden" />           <!-- Operator overloads have named alternates -->
+      <Rule Id="CA2226" Action="Hidden" />           <!-- Operators should have symmetrical overloads -->
+      <Rule Id="CA2227" Action="Hidden" />           <!-- Collection properties should be read only -->
+      <Rule Id="CA2231" Action="Hidden" />           <!-- Overload operator equals on overriding value type Equals -->
+      <Rule Id="CA2244" Action="Hidden" />           <!-- Do not duplicate indexed element initializations -->
+      <Rule Id="CA9999" Action="Hidden" />           <!-- Analyzer version mismatch -->
+   </Rules>
+   <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+      <Rule Id="CA1303" Action="None" />          <!-- Do not pass literals as localized parameters -->
+      <Rule Id="CA1304" Action="None" />          <!-- Specify CultureInfo -->
+      <Rule Id="CA1305" Action="None" />          <!-- Specify IFormatProvider -->
+      <Rule Id="CA1307" Action="None" />          <!-- Specify StringComparison -->
+      <Rule Id="CA1308" Action="None" />          <!-- Normalize strings to uppercase -->
+      <Rule Id="CA1309" Action="None" />          <!-- Use ordinal StringComparison -->
+      <Rule Id="CA1310" Action="None" />          <!-- Specify StringComparison for correctness -->
+      <Rule Id="CA1401" Action="None" />          <!-- P/Invokes should not be visible -->
+      <Rule Id="CA1813" Action="None" />          <!-- Avoid unsealed attributes -->
+      <Rule Id="CA1816" Action="None" />          <!-- Dispose methods should call SuppressFinalize -->
+      <Rule Id="CA1820" Action="Hidden" />        <!-- Test for empty strings using string length -->
+      <Rule Id="CA1826" Action="Hidden" />        <!-- Do not use Enumerable methods on indexable collections. Instead use the collection directly -->
+      <Rule Id="CA2002" Action="Hidden" />        <!-- Do not lock on objects with weak identity -->
+      <Rule Id="CA2008" Action="Hidden" />        <!-- Do not create tasks without passing a TaskScheduler -->
+      <Rule Id="CA2009" Action="Hidden" />        <!-- Do not call ToImmutableCollection on an ImmutableCollection value -->
+      <Rule Id="CA2101" Action="None" />          <!-- Specify marshaling for P/Invoke string arguments -->
+      <Rule Id="CA2208" Action="Hidden" />        <!-- Instantiate argument exceptions correctly -->
+      <Rule Id="CA2216" Action="Hidden" />        <!-- Disposable types should declare finalizer -->
+      <Rule Id="CA2241" Action="Hidden" />        <!-- Provide correct arguments to formatting methods -->
+      <Rule Id="CA2234" Action="Hidden" />        <!-- Pass System.Uri objects instead of strings -->
+      <Rule Id="CA2242" Action="Hidden" />        <!-- Test for NaN correctly -->
+      <Rule Id="CA2243" Action="Hidden" />        <!-- Attribute string literals should parse correctly -->
+      <Rule Id="CA5358" Action="Hidden" />        <!-- Do Not Use Unsafe Cipher Modes -->
+   </Rules>
+   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+      <Rule Id="SA1600" Action="None" />          <!-- Elements should be documented -->
+      <Rule Id="SA1601" Action="None" />          <!-- Partial elements should be documented -->
+      <Rule Id="SA1602" Action="None" />          <!-- Enumeration items should be documented -->
+      <Rule Id="SA1604" Action="None" />          <!-- Element documentation should have summary -->
+      <Rule Id="SA1611" Action="None" />          <!-- Parameter documentation is missing -->
+   </Rules>
+   <Rules AnalyzerId="SecurityCodeScan" RuleNamespace="SecurityCodeScan.Analyzers">
+      <Rule Id="SCS0001" Action="Info" />         <!-- Command injection possible. -->
+      <Rule Id="SCS0002" Action="Info" />         <!-- LINQ API: SQL injection possible. -->
+      <Rule Id="SCS0003" Action="Info" />         <!-- XPath injection possible. -->
+      <Rule Id="SCS0004" Action="Info" />         <!-- Certificate Validation has been disabled. -->
+      <Rule Id="SCS0005" Action="Info" />         <!-- Weak random generator. -->
+      <Rule Id="SCS0006" Action="Info" />         <!-- Weak hashing function. -->
+      <Rule Id="SCS0007" Action="Info" />         <!-- XML parsing vulnerable to XXE. -->
+      <Rule Id="SCS0008" Action="Info" />         <!-- The cookie is missing security flag Secure. -->
+      <Rule Id="SCS0009" Action="Info" />         <!-- The cookie is missing security flag HttpOnly. -->
+      <Rule Id="SCS0010" Action="Info" />         <!-- Weak cipher algorithm. -->
+      <Rule Id="SCS0011" Action="Info" />         <!-- CBC mode is weak. -->
+      <Rule Id="SCS0012" Action="Info" />         <!-- ECB mode is weak. -->
+      <Rule Id="SCS0013" Action="Info" />         <!-- Weak cipher mode. -->
+      <Rule Id="SCS0014" Action="Info" />         <!-- Possible SQL injection. -->
+      <Rule Id="SCS0015" Action="Info" />         <!-- Hardcoded password. -->
+      <Rule Id="SCS0016" Action="Info" />         <!-- Controller method is vulnerable to CSRF. -->
+      <Rule Id="SCS0017" Action="Info" />         <!-- Request validation disabled in base class. -->
+      <Rule Id="SCS0018" Action="Info" />         <!-- Path traversal: injection possible. -->
+      <Rule Id="SCS0019" Action="Info" />         <!-- OutputCache annotation is disabling authorization. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- OleDb API: SQL injection possible. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- Request validation has been disabled. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- Event validation is disabled. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- View state is not encrypted. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- View state mac is disabled. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- Odbc API: SQL injection possible. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- MsSQL Data Provider: SQL injection possible. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- Open redirect: possibly unvalidated input. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- Possibly unsafe deserialization. -->
+      <Rule Id="SCS0020" Action="Info" />         <!-- Potential XSS vulnerability. -->
+      <Rule Id="SCS0030" Action="Info" />         <!-- Request validation is enabled only for pages, not for all HTTP requests. -->
+      <Rule Id="SCS0031" Action="Info" />         <!-- Possible LDAP injection. -->
+      <Rule Id="SCS0032" Action="Info" />         <!-- The RequiredLength property of PasswordValidator should be set to at least {0}. -->
+      <Rule Id="SCS0033" Action="Info" />         <!-- Less than {0} properties set in PasswordValidator declaration. -->
+      <Rule Id="SCS0034" Action="Info" />         <!-- The {0} property must be set. -->
+      <Rule Id="SCS0035" Action="Info" />         <!-- Possible SQL injection. -->
+      <Rule Id="SCS0036" Action="Info" />         <!-- Possible SQL injection. -->
+   </Rules>
+   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
+      <Rule Id="S1075" Action="Info" />           <!-- URIs should not be hardcoded -->
+      <Rule Id="S1118" Action="Info" />           <!-- Utility classes should not have public constructors -->
+      <Rule Id="S1481" Action="Info" />           <!-- Remove unused local variable -->
+      <Rule Id="S2696" Action="Info" />           <!-- Instance members should not write to "static" fields -->
+      <Rule Id="S2933" Action="Info" />           <!-- Make field readonly -->
+   </Rules>
+</RuleSet>

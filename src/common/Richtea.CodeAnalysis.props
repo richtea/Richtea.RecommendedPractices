@@ -1,0 +1,18 @@
+<Project>
+    
+    <!-- 
+        In configuring code analysis, we define various levels:
+
+            Strict   - most strict, appropriate for shared libraries.
+            Standard - appropriate for most production application code.
+            Reduced  - appropriate for samples, development tools.
+            Lax      - minimum level of code analysis, for throwaway code etc.
+            Test     - only for use in test projects.
+
+        Each of these has a corresponding ruleset file.
+
+        If the project file hasn't specified a value by using the RtCodeAnalysisLevel property,
+        we default to Strict.
+    -->
+
+</Project>
