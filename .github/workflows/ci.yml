@@ -12,7 +12,7 @@ jobs:
     outputs:
       build-version: ${{ steps.set_build_version.outputs.build-version }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Get current version from changelog
       id: get_current_version

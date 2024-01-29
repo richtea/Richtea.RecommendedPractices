@@ -17,7 +17,7 @@ jobs:
       is-prerelease: '${{ steps.semver_parser.outputs.prerelease && true || false }}'
       release-notes: '${{ steps.get-release-info.outputs.release-notes }}'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Get latest release info
       id: get-release-info
@@ -67,7 +67,7 @@ jobs:
         github_api_url: ${{ github.api_url && github.api_url || 'https://api.github.com' }}
 
     - name: Download nupkg artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ needs.build.outputs.nupkg-artifact }}
         path: ${{ env.ARTIFACT_PATH }}
