@@ -37,6 +37,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '6.8.x'
+
     - name: Restore dependencies
       run: |
         dotnet tool restore
@@ -48,12 +53,10 @@ jobs:
 
     - name: Create NuGet package
       run: >-
-        dotnet pack
-        --configuration $BUILD_CONFIG
-        --no-build
-        --verbosity normal
-        -p:Version=$BUILD_VERSION
-        --output ${{ env.PACKAGE_PATH }}
+        nuget pack
+        -Version $BUILD_VERSION
+        -OutputDirectory ${{ env.PACKAGE_PATH }}
+        -Properties "branch=${{ github.ref_name }};commit=${{ github.sha }}"
 
     # Validate metadata and content of the NuGet package
     # https://www.nuget.org/packages/Meziantou.Framework.NuGetPackageValidation.Tool#readme-body-tab

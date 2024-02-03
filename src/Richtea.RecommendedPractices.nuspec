@@ -2,13 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata minClientVersion="4.0">
         <id>Richtea.RecommendedPractices</id>
-        <version>0.1.0</version>
+        <version>$version$</version>
         <authors>Rich Tebb</authors>
+        <license type="expression">ISC</license>
         <icon>images\PackageIcon.png</icon>
+        <tags>recommended-practices</tags>
         <developmentDependency>true</developmentDependency>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <projectUrl></projectUrl>
+        <projectUrl>https://github.com/richtea/Richtea.RecommendedPractices</projectUrl>
         <description>Applies richtea standard / recommended engineering practices to a project.</description>
+        <copyright>Copyright ©2024 Rich Tebb</copyright>
+        <readme>docs\README.md</readme>
+        <repository type="git" url="https://github.com/richtea/Richtea.RecommendedPractices.git" branch="$branch$" commit="$commit$" />
         <dependencies>
             <dependency id="Microsoft.CodeAnalysis.NetAnalyzers" version="6.0.0" />
             <dependency id="SecurityCodeScan.VS2019" version="5.2.1" />
@@ -18,5 +23,6 @@
         <file src="images\**" target="images" />
         <file src="build\**" target="build" />
         <file src="build\**" target="buildMultiTargeting" />
+        <file src="..\README.md" target="docs\" />
     </files>
 </package>
