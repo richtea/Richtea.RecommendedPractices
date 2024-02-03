@@ -23,6 +23,6 @@
         <file src="images\**" target="images" />
         <file src="build\**" target="build" />
         <file src="build\**" target="buildMultiTargeting" />
-        <file src="..\README.md" target="docs\" />
+        <file src="..\README.md" target="docs" />
     </files>
 </package>
