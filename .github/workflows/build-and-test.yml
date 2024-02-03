@@ -20,6 +20,7 @@ env:
   BUILD_VERSION: ${{ inputs.build-version && inputs.build-version || '0.0.0-ci.0' }}
   BUILD_CONFIG: ${{ inputs.configuration && inputs.configuration || 'Release'}}
   PACKAGE_PATH: ${{ github.workspace }}/publish
+  NUSPEC_PATH: src/Richtea.RecommendedPractices.nuspec
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
   NUPKG_NAME: nupkg
@@ -53,7 +54,7 @@ jobs:
 
     - name: Create NuGet package
       run: >-
-        nuget pack
+        nuget pack ${{ env.NUSPEC_PATH }}
         -Version $BUILD_VERSION
         -OutputDirectory ${{ env.PACKAGE_PATH }}
         -Properties "branch=${{ github.ref_name }};commit=${{ github.sha }}"
