@@ -5,14 +5,14 @@
         <version>$version$</version>
         <authors>Rich Tebb</authors>
         <license type="expression">ISC</license>
-        <icon>images\PackageIcon.png</icon>
+        <icon>images/PackageIcon.png</icon>
         <tags>recommended-practices</tags>
         <developmentDependency>true</developmentDependency>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <projectUrl>https://github.com/richtea/Richtea.RecommendedPractices</projectUrl>
         <description>Applies richtea standard / recommended engineering practices to a project.</description>
         <copyright>Copyright ©2024 Rich Tebb</copyright>
-        <readme>docs\README.md</readme>
+        <readme>docs/README.md</readme>
         <repository type="git" url="https://github.com/richtea/Richtea.RecommendedPractices.git" branch="$branch$" commit="$commit$" />
         <dependencies>
             <dependency id="Microsoft.CodeAnalysis.NetAnalyzers" version="6.0.0" />
