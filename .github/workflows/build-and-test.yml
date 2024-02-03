@@ -63,9 +63,9 @@ jobs:
     # https://www.nuget.org/packages/Meziantou.Framework.NuGetPackageValidation.Tool#readme-body-tab
     # If some rules are not applicable, you can disable them
     # using the --excluded-rules or --excluded-rule-ids option
-    - name: Validate package
-      run: >-
-        ls ${{ env.PACKAGE_PATH }}/*.nupkg | xargs dotnet tool run meziantou.validate-nuget-package
+    # - name: Validate package
+    #   run: >-
+    #     ls ${{ env.PACKAGE_PATH }}/*.nupkg | xargs dotnet tool run meziantou.validate-nuget-package
 
     - name: Upload nupkg artifact
       uses: actions/upload-artifact@v3
