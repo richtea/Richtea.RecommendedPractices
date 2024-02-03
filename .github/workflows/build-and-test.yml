@@ -27,7 +27,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
       nupkg-artifact: ${{ steps.output_variables.outputs.nupkg-artifact }}
     steps:
