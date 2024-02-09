@@ -50,7 +50,7 @@
             <Output TaskParameter="Checksum"
                 PropertyName="ExistingStyleCopJsonChecksum" />
         </GenerateFileHash>
-        <GenerateFileHash InputFile="$(MSBuildThisFileDirectory)/StyleCop.json">
+        <GenerateFileHash InputFile="$(MSBuildThisFileDirectory)StyleCop.json">
             <Output TaskParameter="Checksum"
                 PropertyName="PackageStyleCopJsonChecksum" />
         </GenerateFileHash>

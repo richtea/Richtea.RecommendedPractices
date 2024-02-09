@@ -82,7 +82,7 @@
             <Output TaskParameter="Checksum"
                 PropertyName="ExistingEditorConfigChecksum" />
         </GenerateFileHash>
-        <GenerateFileHash InputFile="$(MSBuildThisFileDirectory)/.editorconfig.root">
+        <GenerateFileHash InputFile="$(MSBuildThisFileDirectory).editorconfig.root">
             <Output TaskParameter="Checksum"
                 PropertyName="PackageEditorConfigChecksum" />
         </GenerateFileHash>
