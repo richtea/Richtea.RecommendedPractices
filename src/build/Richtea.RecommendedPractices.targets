@@ -3,5 +3,6 @@
     <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.Common.targets" />
     <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.CodeAnalysis.targets" />
     <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.NuGet.targets" />
+    <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.CodeAnalysis.CSharp.targets" />
 
 </Project>
