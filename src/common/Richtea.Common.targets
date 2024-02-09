@@ -17,7 +17,7 @@
     -->
     <Target Name="_RtInitializeDotSettingsCopy">
         <PropertyGroup>
-            <_PackageDotSettingsFile>$(MSBuildThisFileDirectory)/RtRecommendedPractices.DotSettings</_PackageDotSettingsFile>
+            <_PackageDotSettingsFile>$(MSBuildThisFileDirectory)RtRecommendedPractices.DotSettings</_PackageDotSettingsFile>
             <_TargetDotSettingsFile>$(RtRootDir)RtRecommendedPractices.DotSettings</_TargetDotSettingsFile>
             <_RtDotSettingsUpgradeRequired>true</_RtDotSettingsUpgradeRequired>
         </PropertyGroup>
