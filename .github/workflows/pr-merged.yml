@@ -90,7 +90,7 @@ jobs:
       id: upload_release_assets
       uses: richtea/.github/actions/release/upload-asset@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ steps.generate-token.outputs.token }}
         upload-url: '${{ steps.create_draft_release.outputs.upload-url }}'
         files: '${{ env.ARTIFACT_PATH }}/*'
   
