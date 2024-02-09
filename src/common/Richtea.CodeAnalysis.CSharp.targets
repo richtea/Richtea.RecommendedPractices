@@ -62,7 +62,7 @@
             <_RtCopyStyleCopJson Condition="'$(_RtStyleCopUpgradeRequired)' == 'true' And '$(RtStyleCopUpgrade)' == 'silent'">true</_RtCopyStyleCopJson>
         </PropertyGroup>
 
-        <Warning Code="MRC0002"
+        <Warning Code="RRP0005"
             Text="File '$(RtRootDir)StyleCop.json' is inconsistent with the package version, but will not be updated. To update, delete the existing file, or set property RtStyleCopUpgrade to 'silent'. To suppress this warning (for example, because you have modified it yourself), set property RtStyleCopUpgrade to 'never'."
             Condition="'$(_RtStyleCopUpgradeRequired)' == 'true' And '$(RtStyleCopUpgrade)' == 'warn'" />
     </Target>
