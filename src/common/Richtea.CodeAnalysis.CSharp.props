@@ -14,14 +14,14 @@
     </PropertyGroup>
 
     <!-- 
-        If StyleCop is enabled, include the root stylecop.json file unless one exists
+        If StyleCop is enabled, include the root StyleCop.json file unless one exists
         in the project folder.
     -->
     <ItemGroup Condition="'$(RtDisableStyleCop)' != 'true' And
-        !Exists('$(MSBuildProjectDirectory)stylecop.json') And
-        Exists('$(RtRootDir)stylecop.json')">
-        <AdditionalFiles Include="$(RtRootDir)stylecop.json"
-            Link="stylecop.json" />
+        !Exists('$(MSBuildProjectDirectory)StyleCop.json') And
+        Exists('$(RtRootDir)StyleCop.json')">
+        <AdditionalFiles Include="$(RtRootDir)StyleCop.json"
+            Link="StyleCop.json" />
     </ItemGroup>
 
 </Project>

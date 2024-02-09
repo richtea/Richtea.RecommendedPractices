@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Fix inconsistent capitalization of StyleCop.json, which breaks on Mac / Linux.
+
 ## [1.0.0] - 2024-02-09
 
 ### Added
