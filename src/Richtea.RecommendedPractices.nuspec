@@ -23,6 +23,7 @@
     </metadata>
     <files>
         <file src="images\**" target="images" />
+        <file src="common\**" target="common" />
         <file src="build\**" target="build" />
         <file src="build\**" target="buildMultiTargeting" />
         <file src="..\README.md" target="docs" />
