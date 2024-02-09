@@ -6,14 +6,17 @@ on:
     - main
     types: [closed]
   workflow_dispatch:    # Allow running the workflow manually from the GitHub UI
+    inputs:
+      fake-version:
+        description: 'Fake version number'
 
 jobs:
   init:
     runs-on: ubuntu-latest
     # Check this event is a merge of an autorelease PR
-    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'autorelease')
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'autorelease') || github.event_name == 'workflow_dispatch'
     outputs:
-      build-version: ${{ steps.get-release-info.outputs.version }}
+      build-version: ${{ inputs.fake-version || steps.get-release-info.outputs.version }}
       is-prerelease: '${{ steps.semver_parser.outputs.prerelease && true || false }}'
       release-notes: '${{ steps.get-release-info.outputs.release-notes }}'
     steps:
@@ -39,7 +42,7 @@ jobs:
         version: ${{ steps.get-release-info.outputs.version }}
 
   build:
-    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'autorelease')
+    if: (github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'autorelease')) || github.event_name == 'workflow_dispatch'
     needs: init
     uses: ./.github/workflows/build-and-test.yml
     with:
@@ -51,7 +54,7 @@ jobs:
     - build
     runs-on: ubuntu-latest
     # Check this event is a merge of an autorelease PR
-    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'autorelease')
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'autorelease') || github.event_name == 'workflow_dispatch'
     env:
       ARTIFACT_PATH: ${{ github.workspace }}/artifacts
     steps:
@@ -72,23 +75,9 @@ jobs:
         name: ${{ needs.build.outputs.nupkg-artifact }}
         path: ${{ env.ARTIFACT_PATH }}
 
-    - name: Create draft release
-      id: create_release
-      uses: softprops/action-gh-release@v1
-      with:
-        name: '${{ needs.init.outputs.build-version }}'
-        tag_name: 'v${{ needs.init.outputs.build-version }}'
-        body: ${{ needs.init.outputs.release-notes }}
-        files: '${{ env.ARTIFACT_PATH }}/*'
-        target_commitish: '${{ github.base_ref }}'
-        draft: true
-        prerelease: ${{ needs.init.outputs.is-prerelease }}
-        token: ${{ steps.generate-token.outputs.token }}
-        fail_on_unmatched_files: true
-
     - name: Create Draft Release
       id: create_draft_release
-      uses: release-flow/.github/actions/release/create@v1
+      uses: richtea/.github/actions/release/create@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         tag-name: 'v${{ needs.init.outputs.build-version }}'
@@ -99,10 +88,10 @@ jobs:
 
     - name: Upload Release Assets
       id: upload_release_assets
-      uses: richtea/.github/actions/release/upload_asset@v1
+      uses: richtea/.github/actions/release/upload-asset@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        upload-url: '${{ steps.create_release.outputs.upload_url }}'
+        upload-url: '${{ steps.create_draft_release.outputs.upload-url }}'
         files: '${{ env.ARTIFACT_PATH }}/*'
   
     - name: Display instructions
