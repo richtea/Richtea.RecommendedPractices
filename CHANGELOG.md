@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Updated workflows and workflow action versions to fix deprecated Node 16 warnings
+
 ## [0.1.0-alpha.0] - 2024-02-03
 
 ### Changed
