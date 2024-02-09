@@ -12,13 +12,13 @@
     </Target>
 
     <!--
-        Copy the RtRecommendedPractices.DotSettings file into the solution root directory (overwrite if necessary). If the file has
+        Copy the RichteaRecommendedPractices.DotSettings file into the solution root directory (overwrite if necessary). If the file has
         been modified, issue a build warning.
     -->
     <Target Name="_RtInitializeDotSettingsCopy">
         <PropertyGroup>
-            <_PackageDotSettingsFile>$(MSBuildThisFileDirectory)RtRecommendedPractices.DotSettings</_PackageDotSettingsFile>
-            <_TargetDotSettingsFile>$(RtRootDir)RtRecommendedPractices.DotSettings</_TargetDotSettingsFile>
+            <_PackageDotSettingsFile>$(MSBuildThisFileDirectory)RichteaRecommendedPractices.DotSettings</_PackageDotSettingsFile>
+            <_TargetDotSettingsFile>$(RtRootDir)RichteaRecommendedPractices.DotSettings</_TargetDotSettingsFile>
             <_RtDotSettingsUpgradeRequired>true</_RtDotSettingsUpgradeRequired>
         </PropertyGroup>
     </Target>
