@@ -1,0 +1,27 @@
+<Project>
+
+    <PropertyGroup>
+        <!--
+            Disable:
+             - Roslynator warnings we disagree with
+             - compiler warnings about missing XML comments (these are handled by StyleCop).
+
+            Projects can reinstate this simply by setting:
+            
+            <NoWarn></NoWarn>
+        -->
+        <NoWarn>1591;RCS1029</NoWarn>
+    </PropertyGroup>
+
+    <!-- 
+        If StyleCop is enabled, include the root stylecop.json file unless one exists
+        in the project folder.
+    -->
+    <ItemGroup Condition="'$(RtDisableStyleCop)' != 'true' And
+        !Exists('$(MSBuildProjectDirectory)stylecop.json') And
+        Exists('$(RtRootDir)stylecop.json')">
+        <AdditionalFiles Include="$(RtRootDir)stylecop.json"
+            Link="stylecop.json" />
+    </ItemGroup>
+
+</Project>

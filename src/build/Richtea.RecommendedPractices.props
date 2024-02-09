@@ -37,5 +37,6 @@
   <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.Common.props" />
   <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.CodeAnalysis.props" />
   <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.NuGet.props" />
+  <Import Project="$(MSBuildThisFileDirectory)../common/Richtea.CodeAnalysis.CSharp.props" />
   
 </Project>

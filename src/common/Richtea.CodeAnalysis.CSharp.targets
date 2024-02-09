@@ -1,0 +1,96 @@
+<Project ToolsVersion="14.0" 
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!--
+        Set up solution-level StyleCop settings. There's no built-in way for a NuGet package
+        to supply solution-level content so we just check to see if the relevant files exist,
+        and if not, create them.
+
+        Note that this typically results in a warning directly after adding this NuGet package
+        to a project for the first time in any solution, because the files won't get copied
+        until you first build, but VS runs analyzers immediately to provide instant feedback.
+        Once you've built, this warning shouldn't reappear.
+
+        The automatic copying of these files can be configured with property RtStyleCopUpgrade.
+        Allowable values are:
+
+            silent  - Silently upgrade the root StyleCop.json file to keep it aligned with the
+                      NuGet package's version.
+            never   - Never modify the root StyleCop.json file, and don't issue any warnings about
+                      any discrepancies (use this if you are managing it yourself).
+            warn    - Do not modify any existing StyleCop.json file, but create one if it doesn't
+                      exist. If one exists and is different from the package version, issue a
+                      build warning. NOTE: this is the default value if the property is not
+                      specified.
+
+        <PropertyGroup>
+          <RtStyleCopUpgrade>always</RtStyleCopUpgrade>
+        </PropertyGroup>
+    -->
+    
+    <PropertyGroup>
+        <RtStyleCopUpgrade Condition="'$(RtStyleCopUpgrade)' == ''">warn</RtStyleCopUpgrade>
+    </PropertyGroup>
+
+    <!-- Validate settings -->
+    <Target Name="_RtValidateStyleCopUpgradeSetting">
+
+        <Error Code="MRC0001"
+            Condition="'$(RtStyleCopUpgrade)' != 'silent' And
+            '$(RtStyleCopUpgrade)' != 'never' And
+            '$(RtStyleCopUpgrade)' != 'warn'"
+            Text="Invalid value '$(RtStyleCopUpgrade)' for property RtStyleCopUpgrade" />
+
+    </Target>
+
+    <!-- If file exists, check whether upgrade is required -->
+    <Target Name="_RtCheckForStyleCopJsonUpgrade"
+        Condition="Exists('$(RtRootDir)StyleCop.json')">
+        <GenerateFileHash InputFile="$(RtRootDir)StyleCop.json">
+            <Output TaskParameter="Checksum"
+                PropertyName="ExistingStyleCopJsonChecksum" />
+        </GenerateFileHash>
+        <GenerateFileHash InputFile="$(MSBuildThisFileDirectory)/StyleCop.json">
+            <Output TaskParameter="Checksum"
+                PropertyName="PackageStyleCopJsonChecksum" />
+        </GenerateFileHash>
+
+        <PropertyGroup>
+            <_RtStyleCopUpgradeRequired>false</_RtStyleCopUpgradeRequired>
+            <_RtStyleCopUpgradeRequired Condition="'$(ExistingStyleCopJsonChecksum)' != '$(PackageStyleCopJsonChecksum)'">true</_RtStyleCopUpgradeRequired>
+            <_RtCopyStyleCopJson>false</_RtCopyStyleCopJson>
+            <_RtCopyStyleCopJson Condition="'$(_RtStyleCopUpgradeRequired)' == 'true' And '$(RtStyleCopUpgrade)' == 'silent'">true</_RtCopyStyleCopJson>
+        </PropertyGroup>
+
+        <Warning Code="MRC0002"
+            Text="File '$(RtRootDir)StyleCop.json' is inconsistent with the package version, but will not be updated. To update, delete the existing file, or set property RtStyleCopUpgrade to 'silent'. To suppress this warning (for example, because you have modified it yourself), set property RtStyleCopUpgrade to 'never'."
+            Condition="'$(_RtStyleCopUpgradeRequired)' == 'true' And '$(RtStyleCopUpgrade)' == 'warn'" />
+    </Target>
+
+    <!-- If file doesn't exist, determine whether to install it -->
+    <Target Name="_RtCheckForStyleCopJsonInstall"
+        Condition="!Exists('$(RtRootDir)StyleCop.json')">
+
+        <PropertyGroup>
+            <_RtCopyStyleCopJson>true</_RtCopyStyleCopJson>
+            <_RtCopyStyleCopJson Condition="'$(RtStyleCopUpgrade)' == 'never'">false</_RtCopyStyleCopJson>
+        </PropertyGroup>
+
+    </Target>
+
+    <!-- Perform the actual file copy -->
+    <Target Name="_RtEnsureStyleCopJson"
+        AfterTargets="BeforeBuild"
+        BeforeTargets="CoreBuild"
+        DependsOnTargets="_RtValidateStyleCopUpgradeSetting;_RtCheckForStyleCopJsonUpgrade;_RtCheckForStyleCopJsonInstall">
+
+        <Copy Condition="'$(_RtCopyStyleCopJson)' == 'true'"
+            SourceFiles="$(MSBuildThisFileDirectory)StyleCop.json"
+            DestinationFiles="$(RtRootDir)StyleCop.json" />
+
+        <Message Importance="high"
+            Condition="'$(_RtCopyStyleCopJson)' == 'true'"
+            Text="'$(RtRootDir)StyleCop.json' was updated" />
+    </Target>
+
+</Project>
