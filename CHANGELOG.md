@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.0.2] - 2024-02-09
 
 ### Changed
 
@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Initial version.
+
+[1.0.2]: https://github.com/richtea/Richtea.RecommendedPractices/compare/v1.0.1...v1.0.2
 
 [1.0.1]: https://github.com/richtea/Richtea.RecommendedPractices/compare/v1.0.0...v1.0.1
 
